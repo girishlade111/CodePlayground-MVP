@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevSpace | Pro Code Editor</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter for UI, JetBrains Mono for Code -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-panel: #1e293b;
+            --border-color: #334155;
+            --accent: #3b82f6;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        /* Code Editor Styling */
+        .code-editor {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            background-color: var(--bg-panel);
+            color: #e2e8f0;
+            border: none;
+            resize: none;
+            outline: none;
+            tab-size: 4;
+        }
+        
+        .code-editor::placeholder {
+            color: #475569;
+        }
+
+        /* Gutter numbering simulation (simple visual) */
+        .gutter {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: #0f172a;
+            color: #475569;
+            text-align: right;
+            padding-right: 8px;
+            user-select: none;
+        }
+
+        /* Syntax highlight colors (simulated via CSS variables for the UI headers) */
+        .html-color { color: #e06c75; }
+        .css-color { color: #61afef; }
+        .js-color { color: #e5c07b; }
+
+        /* Resizable panels logic would go here, simplified to Flexbox for this demo */
+        
+        .panel-header {
+            backdrop-filter: blur(8px);
+            background: rgba(30, 41, 59, 0.8);
+        }
+
+        /* Console Area */
+        #console-output {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+        }
+        .log-entry { border-bottom: 1px solid #334155; padding: 4px 0; }
+        .log-error { color: #ef4444; }
+        .log-warn { color: #f59e0b; }
+        .log-info { color: #3b82f6; }
+
+    </style>
+</head>
+<body class="flex flex-col h-screen">
+
+    <!-- Navigation Bar -->
+    <nav class="h-14 border-b border-slate-700 bg-slate-900 flex items-center justify-between px-4 select-none">
+        <div class="flex items-center gap-3">
+            <div class="bg-blue-600 p-1.5 rounded-lg">
+                <i data-lucide="code-2" class="w-5 h-5 text-white"></i>
+            </div>
+            <span class="font-semibold text-lg tracking-tight">DevSpace</span>
+
+            <!-- Social Media Links -->
+            <div class="hidden md:flex items-center gap-4 ml-4 pl-4 border-l border-slate-700 h-6">
+                <a href="https://www.instagram.com/girish_lade_/" target="_blank" class="text-slate-500 hover:text-pink-500 transition-colors" title="Instagram">
+                    <i data-lucide="instagram" class="w-4 h-4"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/girish-lade-075bba201/" target="_blank" class="text-slate-500 hover:text-blue-500 transition-colors" title="LinkedIn">
+                    <i data-lucide="linkedin" class="w-4 h-4"></i>
+                </a>
+                <a href="https://github.com/girishlade111" target="_blank" class="text-slate-500 hover:text-white transition-colors" title="GitHub">
+                    <i data-lucide="github" class="w-4 h-4"></i>
+                </a>
+                <a href="https://codepen.io/Girish-Lade-the-looper" target="_blank" class="text-slate-500 hover:text-white transition-colors" title="CodePen">
+                    <i data-lucide="codepen" class="w-4 h-4"></i>
+                </a>
+                <a href="mailto:girishlade111@gmail.com" class="text-slate-500 hover:text-yellow-400 transition-colors" title="Email">
+                    <i data-lucide="mail" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <!-- Auto Run Toggle -->
+            <div class="flex items-center gap-2 mr-4">
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="auto-run-toggle" class="sr-only peer" checked>
+                    <div class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+                    <span class="ml-2 text-xs text-slate-400 font-medium">Auto-Run</span>
+                </label>
+            </div>
+
+            <button onclick="runCode()" class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-1.5 rounded text-sm font-medium transition-colors">
+                <i data-lucide="play" class="w-4 h-4"></i> Run
+            </button>
+            
+            <button onclick="downloadCode()" class="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded transition-colors" title="Download HTML">
+                <i data-lucide="download" class="w-4 h-4"></i>
+            </button>
+
+            <button onclick="clearStorage()" class="p-2 text-slate-400 hover:text-red-400 hover:bg-slate-800 rounded transition-colors" title="Reset Workspace">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Workspace -->
+    <main class="flex-1 flex overflow-hidden">
+        
+        <!-- Editors Column (Left) -->
+        <div class="flex-1 flex flex-col border-r border-slate-700 min-w-[300px] max-w-[50%] transition-all duration-300" id="editor-container">
+            
+            <!-- HTML Editor -->
+            <div class="flex-1 flex flex-col border-b border-slate-700 min-h-[100px]">
+                <div class="panel-header h-8 flex items-center justify-between px-3 bg-slate-800 border-b border-slate-700">
+                    <div class="flex items-center gap-2 text-xs font-bold text-slate-400">
+                        <i data-lucide="file-code" class="w-3 h-3 html-color"></i> HTML
+                    </div>
+                    <button onclick="copyToClipboard('html')" class="text-xs text-slate-500 hover:text-slate-300">Copy</button>
+                </div>
+                <textarea id="html-code" class="code-editor w-full h-full p-4 focus:bg-[#1a2433] transition-colors" spellcheck="false" placeholder="<!-- HTML goes here -->"></textarea>
+            </div>
+
+            <!-- CSS Editor -->
+            <div class="flex-1 flex flex-col border-b border-slate-700 min-h-[100px]">
+                <div class="panel-header h-8 flex items-center justify-between px-3 bg-slate-800 border-b border-slate-700">
+                    <div class="flex items-center gap-2 text-xs font-bold text-slate-400">
+                        <i data-lucide="palette" class="w-3 h-3 css-color"></i> CSS
+                    </div>
+                    <button onclick="copyToClipboard('css')" class="text-xs text-slate-500 hover:text-slate-300">Copy</button>
+                </div>
+                <textarea id="css-code" class="code-editor w-full h-full p-4 focus:bg-[#1a2433] transition-colors" spellcheck="false" placeholder="/* CSS goes here */"></textarea>
+            </div>
+
+            <!-- JS Editor -->
+            <div class="flex-1 flex flex-col min-h-[100px]">
+                <div class="panel-header h-8 flex items-center justify-between px-3 bg-slate-800 border-b border-slate-700">
+                    <div class="flex items-center gap-2 text-xs font-bold text-slate-400">
+                        <i data-lucide="braces" class="w-3 h-3 js-color"></i> JS
+                    </div>
+                    <button onclick="copyToClipboard('js')" class="text-xs text-slate-500 hover:text-slate-300">Copy</button>
+                </div>
+                <textarea id="js-code" class="code-editor w-full h-full p-4 focus:bg-[#1a2433] transition-colors" spellcheck="false" placeholder="// JavaScript goes here"></textarea>
+            </div>
+        </div>
+
+        <!-- Resizer Handle (Visual only for this demo, functional via CSS flex usually) -->
+        <div class="w-1 bg-slate-900 hover:bg-blue-500 cursor-col-resize transition-colors flex items-center justify-center hidden md:flex">
+            <div class="h-8 w-0.5 bg-slate-600 rounded"></div>
+        </div>
+
+        <!-- Preview Column (Right) -->
+        <div class="flex-1 flex flex-col bg-white relative min-w-[300px]">
+            
+            <!-- Preview Toolbar -->
+            <div class="h-8 bg-slate-100 border-b border-slate-200 flex items-center justify-between px-3">
+                <span class="text-xs font-bold text-slate-500 flex items-center gap-2">
+                    <i data-lucide="monitor" class="w-3 h-3"></i> Preview
+                </span>
+                <div class="flex items-center gap-2">
+                    <span id="size-indicator" class="text-[10px] text-slate-400 font-mono"></span>
+                    <button onclick="toggleConsole()" class="text-xs text-slate-500 hover:text-slate-800 flex items-center gap-1 border border-slate-300 rounded px-2 py-0.5 bg-white">
+                        <i data-lucide="terminal" class="w-3 h-3"></i> Console
+                    </button>
+                </div>
+            </div>
+
+            <!-- Iframe -->
+            <div class="relative flex-1 bg-white pattern-grid">
+                <iframe id="preview-frame" class="w-full h-full border-none" sandbox="allow-scripts allow-modals allow-same-origin"></iframe>
+            </div>
+
+            <!-- Console Panel (Collapsible) -->
+            <div id="console-panel" class="bg-slate-900 border-t border-slate-700 h-40 absolute bottom-0 w-full transform translate-y-full transition-transform duration-300 flex flex-col">
+                <div class="h-7 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-3">
+                    <span class="text-xs text-slate-300 font-mono">Console</span>
+                    <div class="flex gap-2">
+                         <button onclick="clearConsole()" class="text-[10px] text-slate-400 hover:text-white">Clear</button>
+                         <button onclick="toggleConsole()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-3 h-3"></i></button>
+                    </div>
+                </div>
+                <div id="console-output" class="flex-1 p-2 overflow-y-auto text-slate-300 space-y-1">
+                    <!-- Logs go here -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-slate-800 text-white px-4 py-2 rounded shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-2 z-50 border border-slate-700">
+        <i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i>
+        <span class="text-sm" id="toast-msg">Action Successful</span>
+    </div>
+
+    <script>
+        // --- Default Code Template ---
+        const defaultHTML = "";
+
+        const defaultCSS = "";
+
+        const defaultJS = "";
+
+        // --- Elements ---
+        const htmlEl = document.getElementById('html-code');
+        const cssEl = document.getElementById('css-code');
+        const jsEl = document.getElementById('js-code');
+        const iframe = document.getElementById('preview-frame');
+        const autoRunToggle = document.getElementById('auto-run-toggle');
+        const consolePanel = document.getElementById('console-panel');
+        const consoleOutput = document.getElementById('console-output');
+
+        let timeout = null;
+        let isConsoleOpen = false;
+
+        // --- Initialization ---
+        window.onload = () => {
+            lucide.createIcons();
+            loadCode();
+            runCode(); // Initial run
+            setupResizeObserver();
+        };
+
+        // --- Core Logic ---
+
+        function runCode() {
+            const html = htmlEl.value;
+            const css = cssEl.value;
+            const js = jsEl.value;
+
+            // Script to hijack console logs inside iframe
+            const consoleScript = `
+                <script>
+                    (function(){
+                        const oldLog = console.log;
+                        const oldError = console.error;
+                        const oldWarn = console.warn;
+                        
+                        function sendToParent(type, args) {
+                            try {
+                                const msg = args.map(arg => 
+                                    typeof arg === 'object' ? JSON.stringify(arg) : String(arg)
+                                ).join(' ');
+                                window.parent.postMessage({type: 'console', method: type, message: msg}, '*');
+                            } catch(e) {}
+                        }
+
+                        console.log = function(...args) { oldLog.apply(console, args); sendToParent('log', args); };
+                        console.error = function(...args) { oldError.apply(console, args); sendToParent('error', args); };
+                        console.warn = function(...args) { oldWarn.apply(console, args); sendToParent('warn', args); };
+
+                        window.onerror = function(msg, url, line, col, error) {
+                            sendToParent('error', [msg]);
+                        };
+                    })();
+                <\/script>
+            `;
+
+            const source = `
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <style>${css}</style>
+                </head>
+                <body>
+                    ${html}
+                    ${consoleScript}
+                    <script>
+                        ${js}
+                    <\/script>
+                </body>
+                </html>
+            `;
+
+            iframe.srcdoc = source;
+            saveCode();
+        }
+
+        // --- Events & Debounce ---
+        function onCodeChange() {
+            if(autoRunToggle.checked) {
+                clearTimeout(timeout);
+                timeout = setTimeout(runCode, 1000); // 1 second debounce
+            } else {
+                saveCode(); // Still save even if we don't run
+            }
+        }
+
+        [htmlEl, cssEl, jsEl].forEach(el => {
+            el.addEventListener('input', onCodeChange);
+            // Allow Tab indentation
+            el.addEventListener('keydown', function(e) {
+                if (e.key == 'Tab') {
+                    e.preventDefault();
+                    var start = this.selectionStart;
+                    var end = this.selectionEnd;
+                    this.value = this.value.substring(0, start) + "  " + this.value.substring(end);
+                    this.selectionStart = this.selectionEnd = start + 2;
+                }
+            });
+        });
+
+        // --- Console Handling ---
+        window.addEventListener('message', (event) => {
+            if (event.data && event.data.type === 'console') {
+                logToConsole(event.data.method, event.data.message);
+            }
+        });
+
+        function logToConsole(method, message) {
+            const div = document.createElement('div');
+            div.className = `log-entry log-${method} font-mono text-xs break-words`;
+            const time = new Date().toLocaleTimeString('en-US', {hour12: false, hour: "numeric", minute: "numeric", second: "numeric"});
+            div.innerHTML = `<span class="opacity-50 mr-2">[${time}]</span>${escapeHtml(message)}`;
+            consoleOutput.appendChild(div);
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+            
+            // Auto open console on error if hidden
+            if(method === 'error' && !isConsoleOpen) {
+                 toggleConsole();
+            }
+        }
+
+        function clearConsole() {
+            consoleOutput.innerHTML = '';
+        }
+
+        function toggleConsole() {
+            isConsoleOpen = !isConsoleOpen;
+            if(isConsoleOpen) {
+                consolePanel.style.transform = 'translateY(0)';
+            } else {
+                consolePanel.style.transform = 'translateY(100%)';
+            }
+        }
+
+        // --- Storage System ---
+        function saveCode() {
+            localStorage.setItem('devspace_html', htmlEl.value);
+            localStorage.setItem('devspace_css', cssEl.value);
+            localStorage.setItem('devspace_js', jsEl.value);
+        }
+
+        function loadCode() {
+            htmlEl.value = localStorage.getItem('devspace_html') || defaultHTML;
+            cssEl.value = localStorage.getItem('devspace_css') || defaultCSS;
+            jsEl.value = localStorage.getItem('devspace_js') || defaultJS;
+        }
+
+        function clearStorage() {
+            if(confirm('Reset all code to default? This cannot be undone.')) {
+                localStorage.removeItem('devspace_html');
+                localStorage.removeItem('devspace_css');
+                localStorage.removeItem('devspace_js');
+                loadCode();
+                runCode();
+                showToast('Workspace reset');
+            }
+        }
+
+        // --- Utilities ---
+        function downloadCode() {
+            const html = htmlEl.value;
+            const css = cssEl.value;
+            const js = jsEl.value;
+            
+            const fullContent = `<!DOCTYPE html>
+<html>
+<head>
+<style>
+${css}
+</style>
+</head>
+<body>
+${html}
+<script>
+${js}
+<\/script>
+</body>
+</html>`;
+
+            const blob = new Blob([fullContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'project.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('Downloading HTML...');
+        }
+
+        function copyToClipboard(type) {
+            let el;
+            if (type === 'html') el = htmlEl;
+            if (type === 'css') el = cssEl;
+            if (type === 'js') el = jsEl;
+            
+            el.select();
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+            showToast(`${type.toUpperCase()} copied to clipboard`);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            toastMsg.innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2000);
+        }
+
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function setupResizeObserver() {
+            const resizeObserver = new ResizeObserver(entries => {
+                const width = entries[0].contentRect.width;
+                const height = entries[0].contentRect.height;
+                document.getElementById('size-indicator').innerText = `${Math.round(width)}px × ${Math.round(height)}px`;
+            });
+            resizeObserver.observe(iframe);
+        }
+
+    </script>
+</body>
+</html>
