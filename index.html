@@ -175,6 +175,11 @@
                 </label>
             </div>
 
+            <!-- Template Button -->
+            <button onclick="loadTemplate()" class="p-2 text-neutral-500 hover:text-white hover:bg-neutral-800 rounded-lg transition-all duration-200 ease-smooth" title="Load Template" aria-label="Load Code Template">
+                <i data-lucide="layout-template" class="w-4 h-4"></i>
+            </button>
+
             <button onclick="toggleAbout()" class="p-2 text-neutral-500 hover:text-white hover:bg-neutral-800 rounded-lg transition-all duration-200 ease-smooth" title="About DevSpace" aria-label="About DevSpace">
                 <i data-lucide="circle-help" class="w-4 h-4"></i>
             </button>
@@ -561,6 +566,73 @@
         const defaultHTML = "";
         const defaultCSS = "";
         const defaultJS = "";
+        
+        // Boilerplate Template
+        const boilerplateHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevSpace App</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to DevSpace</h1>
+    <p>Start editing to see some magic happen!</p>
+    <button id="clickMe">Click Me</button>
+  </div>
+</body>
+</html>`;
+
+        const boilerplateCSS = `body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.container {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+h1 { color: #2563eb; margin-bottom: 1rem; }
+
+button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+button:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}`;
+
+        const boilerplateJS = `console.log('Template loaded successfully!');
+
+const btn = document.getElementById('clickMe');
+
+btn.addEventListener('click', () => {
+  const colors = ['#f87171', '#fbbf24', '#34d399', '#60a5fa', '#a78bfa'];
+  const randomColor = colors[Math.floor(Math.random() * colors.length)];
+  document.body.style.backgroundColor = randomColor;
+  console.log(\`Background changed to \${randomColor}\`);
+});`;
 
         // --- DOM Elements ---
         const iframe = document.getElementById('preview-frame');
@@ -739,6 +811,31 @@
             iframe.srcdoc = source;
             saveCode();
         }
+
+        // --- Template Function (Updated) ---
+        function loadTemplate() {
+            if (!htmlEditor || !cssEditor || !jsEditor) {
+                showToast('Editor not ready yet...', 'info');
+                return;
+            }
+
+            if(confirm('This will overwrite your current code with a starter template. Continue?')) {
+                 try {
+                     htmlEditor.setValue(boilerplateHTML);
+                     cssEditor.setValue(boilerplateCSS);
+                     jsEditor.setValue(boilerplateJS);
+                     saveCode();
+                     runCode();
+                     showToast('Template loaded', 'success');
+                 } catch (err) {
+                     console.error(err);
+                     showToast('Error loading template', 'error');
+                 }
+            }
+        }
+        
+        // Ensure global access
+        window.loadTemplate = loadTemplate;
 
         // --- Panel Management ---
         function togglePanel(id) {
