@@ -149,6 +149,10 @@
                 <i data-lucide="terminal-square" class="w-4 h-4"></i>
             </button>
 
+            <button onclick="toggleConsole()" class="p-2 text-neutral-500 hover:text-white hover:bg-neutral-800 rounded transition-colors" title="Open Console">
+                <i data-lucide="bug" class="w-4 h-4"></i>
+            </button>
+
             <button onclick="runCode()" class="flex items-center gap-2 bg-white hover:bg-neutral-200 text-black px-4 py-1.5 rounded text-sm font-bold transition-colors">
                 <i data-lucide="play" class="w-4 h-4 fill-current"></i> Run
             </button>
@@ -222,7 +226,7 @@
                         <i data-lucide="external-link" class="w-3 h-3"></i>
                     </button>
                     <button onclick="toggleConsole()" class="text-xs text-neutral-500 hover:text-black flex items-center gap-1 border border-neutral-300 rounded px-2 py-0.5 bg-white transition-colors">
-                        <i data-lucide="terminal" class="w-3 h-3"></i> Console
+                        <i data-lucide="bug" class="w-3 h-3"></i> Console
                     </button>
                 </div>
             </div>
@@ -231,20 +235,7 @@
             <div class="relative flex-1 bg-white pattern-grid">
                 <iframe id="preview-frame" class="w-full h-full border-none" sandbox="allow-scripts allow-modals allow-same-origin"></iframe>
             </div>
-
-            <!-- Console Panel (Collapsible) -->
-            <div id="console-panel" class="bg-neutral-900 border-t border-neutral-800 h-40 absolute bottom-0 w-full transform translate-y-full transition-transform duration-300 flex flex-col">
-                <div class="h-7 bg-neutral-800 border-b border-neutral-700 flex items-center justify-between px-3">
-                    <span class="text-xs text-neutral-400 font-mono">Console</span>
-                    <div class="flex gap-2">
-                         <button onclick="clearConsole()" class="text-[10px] text-neutral-500 hover:text-white transition-colors">Clear</button>
-                         <button onclick="toggleConsole()" class="text-neutral-500 hover:text-white transition-colors"><i data-lucide="x" class="w-3 h-3"></i></button>
-                    </div>
-                </div>
-                <div id="console-output" class="flex-1 p-2 overflow-y-auto text-neutral-300 space-y-1">
-                    <!-- Logs go here -->
-                </div>
-            </div>
+            <!-- Old Console Panel Removed -->
 
         </div>
     </main>
@@ -284,6 +275,28 @@
         </div>
     </div>
 
+    <!-- Advanced Dev Console -->
+    <div id="dev-console" class="fixed bottom-0 left-0 w-full bg-black border-t border-neutral-800 z-50 hidden flex flex-col shadow-2xl" style="height: 300px; min-height: 100px;">
+        <!-- Console Header (Resizer) -->
+        <div id="console-header" class="h-9 bg-neutral-900 border-b border-neutral-800 flex items-center justify-between px-3 cursor-ns-resize select-none">
+             <div class="flex items-center gap-2">
+                <i data-lucide="bug" class="w-4 h-4 text-neutral-400"></i>
+                <span class="text-xs font-mono text-neutral-400">Debug Console</span>
+             </div>
+             <div class="flex items-center gap-3">
+                <button onclick="clearConsole()" class="text-[10px] text-neutral-500 hover:text-white transition-colors mr-2">Clear</button>
+                <button onclick="toggleConsole()" class="text-neutral-500 hover:text-white cursor-pointer" title="Minimize"><i data-lucide="minus" class="w-3 h-3"></i></button>
+                <button onclick="maximizeConsole()" class="text-neutral-500 hover:text-white cursor-pointer" title="Maximize"><i data-lucide="maximize-2" class="w-3 h-3"></i></button>
+                <button onclick="toggleConsole()" class="text-neutral-500 hover:text-red-500 cursor-pointer" title="Close"><i data-lucide="x" class="w-3 h-3"></i></button>
+             </div>
+        </div>
+        
+        <!-- Console Output -->
+        <div id="console-output" class="flex-1 overflow-y-auto p-2 font-mono text-sm text-neutral-300 space-y-1 scrollbar-thin">
+            <!-- Logs go here -->
+        </div>
+    </div>
+
     <script>
         // --- Default Code Template ---
         const defaultHTML = "";
@@ -298,8 +311,6 @@
         const jsEl = document.getElementById('js-code');
         const iframe = document.getElementById('preview-frame');
         const autoRunToggle = document.getElementById('auto-run-toggle');
-        const consolePanel = document.getElementById('console-panel');
-        const consoleOutput = document.getElementById('console-output');
         
         // Terminal Elements
         const devTerminal = document.getElementById('dev-terminal');
@@ -307,10 +318,19 @@
         const termInput = document.getElementById('term-input');
         const termOutput = document.getElementById('term-output');
 
+        // Console Elements
+        const devConsole = document.getElementById('dev-console');
+        const consoleHeader = document.getElementById('console-header');
+        const consoleOutput = document.getElementById('console-output');
+
         let timeout = null;
         let isConsoleOpen = false;
+        
         let isTermMaximized = false;
         let prevTermHeight = '300px';
+
+        let isConsoleMaximized = false;
+        let prevConsoleHeight = '300px';
 
         // --- Initialization ---
         window.onload = () => {
@@ -319,6 +339,7 @@
             runCode(); // Initial run
             setupResizeObserver();
             setupTerminal();
+            setupConsole();
         };
 
         // --- Core Logic ---
@@ -417,7 +438,10 @@
             
             // Auto open console on error if hidden
             if(method === 'error' && !isConsoleOpen) {
-                 toggleConsole();
+                 // Optional: Auto open if strictly desired. 
+                 // toggleConsole(); 
+                 // Kept off by default to avoid annoyance, but user can see log badge count if we added one.
+                 // For now we just let it log.
             }
         }
 
@@ -428,9 +452,20 @@
         function toggleConsole() {
             isConsoleOpen = !isConsoleOpen;
             if(isConsoleOpen) {
-                consolePanel.style.transform = 'translateY(0)';
+                devConsole.classList.remove('hidden');
             } else {
-                consolePanel.style.transform = 'translateY(100%)';
+                devConsole.classList.add('hidden');
+            }
+        }
+
+        function maximizeConsole() {
+            if (!isConsoleMaximized) {
+                prevConsoleHeight = devConsole.style.height;
+                devConsole.style.height = 'calc(100vh - 56px)'; // Full height minus navbar
+                isConsoleMaximized = true;
+            } else {
+                devConsole.style.height = prevConsoleHeight;
+                isConsoleMaximized = false;
             }
         }
 
@@ -610,17 +645,25 @@ ${js}
                 }
             });
 
-            // Drag to Resize Logic
+            setupResizablePanel(devTerminal, termHeader, (h) => prevTermHeight = h, () => isTermMaximized = false);
+        }
+
+        function setupConsole() {
+            setupResizablePanel(devConsole, consoleHeader, (h) => prevConsoleHeight = h, () => isConsoleMaximized = false);
+        }
+
+        // Unified Resize Logic
+        function setupResizablePanel(panel, header, updateHeightRef, resetMax) {
             let isResizing = false;
             let startY, startHeight;
 
-            termHeader.addEventListener('mousedown', (e) => {
+            header.addEventListener('mousedown', (e) => {
                 // Don't trigger resize if clicking buttons
                 if(e.target.closest('button')) return;
                 
                 isResizing = true;
                 startY = e.clientY;
-                startHeight = parseInt(document.defaultView.getComputedStyle(devTerminal).height, 10);
+                startHeight = parseInt(document.defaultView.getComputedStyle(panel).height, 10);
                 document.documentElement.style.cursor = 'ns-resize';
             });
 
@@ -629,9 +672,9 @@ ${js}
                 const deltaY = startY - e.clientY;
                 const newHeight = startHeight + deltaY;
                 if (newHeight > 100 && newHeight < window.innerHeight - 60) {
-                    devTerminal.style.height = `${newHeight}px`;
-                    prevTermHeight = `${newHeight}px`; // Update stored preference
-                    isTermMaximized = false; // Reset max state if manually resized
+                    panel.style.height = `${newHeight}px`;
+                    updateHeightRef(`${newHeight}px`);
+                    resetMax(); // Reset max state if manually resized
                 }
             });
 
