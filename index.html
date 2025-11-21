@@ -5,12 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO: Primary Meta Tags -->
-    <title>DevSpace | Pro Online Code Editor & Compiler</title>
-    <meta name="description" content="DevSpace is a high-performance, browser-based HTML, CSS, and JavaScript code editor. Features live preview, advanced console, terminal, and offline support.">
-    <meta name="keywords" content="online code editor, html editor, javascript compiler, frontend playground, web development, live preview, monaco editor, free code editor, girish lade">
+    <title>DevSpace | Free Online Code Editor, Compiler & Playground</title>
+    <meta name="description" content="DevSpace is a professional, browser-based online code editor for HTML, CSS, and JavaScript. Features a Monaco editor, live preview, terminal, and instant export. Free for all developers.">
+    <meta name="keywords" content="online code editor, html compiler, css editor, javascript playground, frontend developer tool, monaco editor online, web development IDE, free code editor, girish lade">
     <meta name="author" content="Girish Lade">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://ladestack.in/devspace">
+    <!-- Favicon (Prevents 404) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+    <!-- SEO: Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ladestack.in/devspace">
+    <meta property="og:title" content="DevSpace | Pro Online Code Editor & Compiler">
+    <meta property="og:description" content="Write, debug, and export HTML/CSS/JS instantly. Features VS Code-like editing, live preview, and offline support. Lifetime free.">
+    <meta property="og:image" content="https://ladestack.in/assets/devspace-social-card.png">
+    <meta property="og:locale" content="en_US">
+
+    <!-- SEO: Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ladestack.in/devspace">
+    <meta property="twitter:title" content="DevSpace | Blazing Fast Online Code Editor">
+    <meta property="twitter:description" content="The ultimate minimalist playground for frontend developers. No setup required.">
+    <meta property="twitter:image" content="https://ladestack.in/assets/devspace-social-card.png">
+
+    <!-- SEO: Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "DevSpace",
+      "url": "https://ladestack.in/devspace",
+      "description": "A high-performance, browser-based code editor for HTML, CSS, and JavaScript with live preview and developer tools.",
+      "applicationCategory": "DeveloperApplication",
+      "genre": "Development Tool",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript. Works in Chrome, Firefox, Safari, Edge.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Girish Lade",
+        "url": "https://ladestack.in"
+      },
+      "featureList": ["Monaco Editor", "Live Preview", "CLI Terminal", "Offline Support", "Code Export"]
+    }
+    </script>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -111,12 +155,12 @@
 
             <!-- Social Media Links -->
             <div class="hidden md:flex items-center gap-4 ml-4 pl-4 border-l border-neutral-800 h-6">
-                <a href="https://ladestack.in" target="_blank" rel="noopener noreferrer" class="text-neutral-500 hover:text-white transition-colors duration-300 ease-smooth" title="LadeStack.in"><i data-lucide="globe" class="w-4 h-4"></i></a>
-                <a href="https://www.instagram.com/girish_lade_/" target="_blank" rel="noopener noreferrer" class="text-neutral-500 hover:text-white transition-colors duration-300 ease-smooth" title="Instagram"><i data-lucide="instagram" class="w-4 h-4"></i></a>
-                <a href="https://www.linkedin.com/in/girish-lade-075bba201/" target="_blank" rel="noopener noreferrer" class="text-neutral-500 hover:text-white transition-colors duration-300 ease-smooth" title="LinkedIn"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
-                <a href="https://github.com/girishlade111" target="_blank" rel="noopener noreferrer" class="text-neutral-500 hover:text-white transition-colors duration-300 ease-smooth" title="GitHub"><i data-lucide="github" class="w-4 h-4"></i></a>
-                <a href="https://codepen.io/Girish-Lade-the-looper" target="_blank" rel="noopener noreferrer" class="text-neutral-500 hover:text-white transition-colors duration-300 ease-smooth" title="CodePen"><i data-lucide="codepen" class="w-4 h-4"></i></a>
-                <a href="mailto:girishlade111@gmail.com" class="text-neutral-500 hover:text-white transition-colors duration-300 ease-smooth" title="Email"><i data-lucide="mail" class="w-4 h-4"></i></a>
+                <a href="https://ladestack.in" target="_blank" rel="noopener noreferrer" class="text-neutral-500 hover:text-white transition-colors duration-300 ease-smooth" title="LadeStack.in" aria-label="Visit LadeStack Website"><i data-lucide="globe" class="w-4 h-4"></i></a>
+                <a href="https://www.instagram.com/girish_lade_/" target="_blank" rel="noopener noreferrer" class="text-neutral-500 hover:text-white transition-colors duration-300 ease-smooth" title="Instagram" aria-label="Instagram Profile"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                <a href="https://www.linkedin.com/in/girish-lade-075bba201/" target="_blank" rel="noopener noreferrer" class="text-neutral-500 hover:text-white transition-colors duration-300 ease-smooth" title="LinkedIn" aria-label="LinkedIn Profile"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+                <a href="https://github.com/girishlade111" target="_blank" rel="noopener noreferrer" class="text-neutral-500 hover:text-white transition-colors duration-300 ease-smooth" title="GitHub" aria-label="GitHub Profile"><i data-lucide="github" class="w-4 h-4"></i></a>
+                <a href="https://codepen.io/Girish-Lade-the-looper" target="_blank" rel="noopener noreferrer" class="text-neutral-500 hover:text-white transition-colors duration-300 ease-smooth" title="CodePen" aria-label="CodePen Profile"><i data-lucide="codepen" class="w-4 h-4"></i></a>
+                <a href="mailto:girishlade111@gmail.com" class="text-neutral-500 hover:text-white transition-colors duration-300 ease-smooth" title="Email" aria-label="Send Email"><i data-lucide="mail" class="w-4 h-4"></i></a>
             </div>
         </div>
 
@@ -130,15 +174,15 @@
                 </label>
             </div>
 
-            <button onclick="toggleAbout()" class="p-2 text-neutral-500 hover:text-white hover:bg-neutral-800 rounded-lg transition-all duration-200 ease-smooth" title="About DevSpace">
+            <button onclick="toggleAbout()" class="p-2 text-neutral-500 hover:text-white hover:bg-neutral-800 rounded-lg transition-all duration-200 ease-smooth" title="About DevSpace" aria-label="About DevSpace">
                 <i data-lucide="circle-help" class="w-4 h-4"></i>
             </button>
 
-            <button onclick="toggleTerminal()" class="p-2 text-neutral-500 hover:text-white hover:bg-neutral-800 rounded-lg transition-all duration-200 ease-smooth" title="Open Terminal">
+            <button onclick="toggleTerminal()" class="p-2 text-neutral-500 hover:text-white hover:bg-neutral-800 rounded-lg transition-all duration-200 ease-smooth" title="Open Terminal" aria-label="Open Terminal">
                 <i data-lucide="terminal-square" class="w-4 h-4"></i>
             </button>
 
-            <button onclick="toggleConsole()" class="p-2 text-neutral-500 hover:text-white hover:bg-neutral-800 rounded-lg transition-all duration-200 ease-smooth" title="Open Console">
+            <button onclick="toggleConsole()" class="p-2 text-neutral-500 hover:text-white hover:bg-neutral-800 rounded-lg transition-all duration-200 ease-smooth" title="Open Console" aria-label="Open Debug Console">
                 <i data-lucide="bug" class="w-4 h-4"></i>
             </button>
 
@@ -146,11 +190,11 @@
                 <i data-lucide="play" class="w-4 h-4 fill-current"></i> Run
             </button>
             
-            <button onclick="downloadCode()" class="p-2 text-neutral-500 hover:text-white hover:bg-neutral-800 rounded-lg transition-all duration-200 ease-smooth" title="Download HTML">
+            <button onclick="downloadCode()" class="p-2 text-neutral-500 hover:text-white hover:bg-neutral-800 rounded-lg transition-all duration-200 ease-smooth" title="Download HTML" aria-label="Download Code">
                 <i data-lucide="download" class="w-4 h-4"></i>
             </button>
 
-            <button onclick="clearStorage()" class="p-2 text-neutral-500 hover:text-red-400 hover:bg-neutral-800 rounded-lg transition-all duration-200 ease-smooth" title="Reset Workspace">
+            <button onclick="clearStorage()" class="p-2 text-neutral-500 hover:text-red-400 hover:bg-neutral-800 rounded-lg transition-all duration-200 ease-smooth" title="Reset Workspace" aria-label="Reset Workspace">
                 <i data-lucide="trash-2" class="w-4 h-4"></i>
             </button>
         </div>
@@ -168,7 +212,7 @@
                     <div class="flex items-center gap-2 text-xs font-bold text-neutral-400">
                         <i data-lucide="file-code" class="w-3 h-3 html-color"></i> HTML
                     </div>
-                    <button onclick="copyToClipboard('html')" class="text-xs text-neutral-500 hover:text-white transition-colors">Copy</button>
+                    <button onclick="copyToClipboard('html')" class="text-xs text-neutral-500 hover:text-white transition-colors" aria-label="Copy HTML">Copy</button>
                 </div>
                 <!-- Monaco Container -->
                 <div id="html-editor" class="monaco-container"></div>
@@ -180,7 +224,7 @@
                     <div class="flex items-center gap-2 text-xs font-bold text-neutral-400">
                         <i data-lucide="palette" class="w-3 h-3 css-color"></i> CSS
                     </div>
-                    <button onclick="copyToClipboard('css')" class="text-xs text-neutral-500 hover:text-white transition-colors">Copy</button>
+                    <button onclick="copyToClipboard('css')" class="text-xs text-neutral-500 hover:text-white transition-colors" aria-label="Copy CSS">Copy</button>
                 </div>
                 <!-- Monaco Container -->
                 <div id="css-editor" class="monaco-container"></div>
@@ -192,7 +236,7 @@
                     <div class="flex items-center gap-2 text-xs font-bold text-neutral-400">
                         <i data-lucide="braces" class="w-3 h-3 js-color"></i> JS
                     </div>
-                    <button onclick="copyToClipboard('js')" class="text-xs text-neutral-500 hover:text-white transition-colors">Copy</button>
+                    <button onclick="copyToClipboard('js')" class="text-xs text-neutral-500 hover:text-white transition-colors" aria-label="Copy JavaScript">Copy</button>
                 </div>
                 <!-- Monaco Container -->
                 <div id="js-editor" class="monaco-container"></div>
@@ -214,10 +258,10 @@
                 </span>
                 <div class="flex items-center gap-2">
                     <span id="size-indicator" class="text-[10px] text-neutral-400 font-mono transition-opacity duration-300 opacity-0 hover:opacity-100"></span>
-                    <button onclick="openInNewTab()" class="text-xs text-neutral-500 hover:text-black flex items-center gap-1 border border-neutral-300 rounded px-2 py-0.5 bg-white transition-colors ease-smooth hover:shadow-sm" title="Open in New Tab">
+                    <button onclick="openInNewTab()" class="text-xs text-neutral-500 hover:text-black flex items-center gap-1 border border-neutral-300 rounded px-2 py-0.5 bg-white transition-colors ease-smooth hover:shadow-sm" title="Open in New Tab" aria-label="Open Preview in New Tab">
                         <i data-lucide="external-link" class="w-3 h-3"></i>
                     </button>
-                    <button onclick="toggleConsole()" class="text-xs text-neutral-500 hover:text-black flex items-center gap-1 border border-neutral-300 rounded px-2 py-0.5 bg-white transition-colors ease-smooth hover:shadow-sm">
+                    <button onclick="toggleConsole()" class="text-xs text-neutral-500 hover:text-black flex items-center gap-1 border border-neutral-300 rounded px-2 py-0.5 bg-white transition-colors ease-smooth hover:shadow-sm" aria-label="Toggle Preview Console">
                         <i data-lucide="bug" class="w-3 h-3"></i> Console
                     </button>
                 </div>
@@ -225,13 +269,13 @@
 
             <!-- Iframe -->
             <div class="relative flex-1 bg-white pattern-grid">
-                <iframe id="preview-frame" class="w-full h-full border-none" sandbox="allow-scripts allow-modals allow-same-origin" title="Code Preview"></iframe>
+                <iframe id="preview-frame" class="w-full h-full border-none" sandbox="allow-scripts allow-modals allow-same-origin" title="Code Preview" aria-label="Live Preview Iframe"></iframe>
             </div>
         </div>
     </main>
 
     <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-5 right-5 px-4 py-3 rounded-lg shadow-2xl transform translate-y-20 opacity-0 transition-all duration-500 cubic-bezier(0.68, -0.55, 0.265, 1.55) flex items-center gap-3 z-[100] border border-white/10 backdrop-blur-md">
+    <div id="toast" class="fixed bottom-5 right-5 px-4 py-3 rounded-lg shadow-2xl transform translate-y-20 opacity-0 transition-all duration-500 cubic-bezier(0.68, -0.55, 0.265, 1.55) flex items-center gap-3 z-[100] border border-white/10 backdrop-blur-md" role="status" aria-live="polite">
         <div id="toast-icon"></div>
         <div class="flex flex-col">
             <span class="text-sm font-medium text-white" id="toast-msg">Notification</span>
@@ -239,7 +283,7 @@
     </div>
 
     <!-- Advanced Dev Terminal (Drawer) -->
-    <div id="dev-terminal" class="fixed bottom-0 left-0 w-full bg-black/95 backdrop-blur-xl border-t border-neutral-800 z-[50] flex flex-col shadow-[0_-10px_40px_rgba(0,0,0,0.5)] panel-drawer panel-closed" style="height: 320px;">
+    <div id="dev-terminal" class="fixed bottom-0 left-0 w-full bg-black/95 backdrop-blur-xl border-t border-neutral-800 z-[50] flex flex-col shadow-[0_-10px_40px_rgba(0,0,0,0.5)] panel-drawer panel-closed" style="height: 320px;" role="region" aria-label="Developer Terminal">
         <!-- Header -->
         <div id="term-header" class="h-9 bg-neutral-900/50 border-b border-neutral-800 flex items-center justify-between px-3 cursor-ns-resize select-none hover:bg-neutral-800/50 transition-colors">
              <div class="flex items-center gap-2">
@@ -247,13 +291,13 @@
                 <span class="text-xs font-mono text-neutral-400">DevTerminal @ LocalHost</span>
              </div>
              <div class="flex items-center gap-3">
-                <button onclick="minimizePanel('dev-terminal')" class="text-neutral-500 hover:text-white transition-colors"><i data-lucide="minus" class="w-3 h-3"></i></button>
-                <button onclick="maximizePanel('dev-terminal')" class="text-neutral-500 hover:text-white transition-colors"><i data-lucide="maximize-2" class="w-3 h-3"></i></button>
-                <button onclick="closePanel('dev-terminal')" class="text-neutral-500 hover:text-red-500 transition-colors"><i data-lucide="x" class="w-3 h-3"></i></button>
+                <button onclick="minimizePanel('dev-terminal')" class="text-neutral-500 hover:text-white transition-colors" aria-label="Minimize Terminal"><i data-lucide="minus" class="w-3 h-3"></i></button>
+                <button onclick="maximizePanel('dev-terminal')" class="text-neutral-500 hover:text-white transition-colors" aria-label="Maximize Terminal"><i data-lucide="maximize-2" class="w-3 h-3"></i></button>
+                <button onclick="closePanel('dev-terminal')" class="text-neutral-500 hover:text-red-500 transition-colors" aria-label="Close Terminal"><i data-lucide="x" class="w-3 h-3"></i></button>
              </div>
         </div>
         <!-- Output -->
-        <div id="term-output" class="flex-1 overflow-y-auto p-4 font-mono text-sm text-neutral-300 space-y-1 scrollbar-thin">
+        <div id="term-output" class="flex-1 overflow-y-auto p-4 font-mono text-sm text-neutral-300 space-y-1 scrollbar-thin" role="log">
             <div class="text-neutral-500 mb-2">DevSpace Terminal v1.2.0 - System Ready</div>
             <div class="text-neutral-500 mb-2 opacity-70">Type 'help' for commands.</div>
         </div>
@@ -261,12 +305,12 @@
         <div class="p-2 bg-neutral-900 border-t border-neutral-800 flex items-center gap-2">
             <span class="text-green-500 font-mono font-bold">➜</span>
             <span class="text-blue-400 font-mono font-bold">~</span>
-            <input type="text" id="term-input" class="bg-transparent border-none outline-none flex-1 font-mono text-sm text-white focus:ring-0 placeholder-neutral-700" autocomplete="off" spellcheck="false">
+            <input type="text" id="term-input" class="bg-transparent border-none outline-none flex-1 font-mono text-sm text-white focus:ring-0 placeholder-neutral-700" autocomplete="off" spellcheck="false" aria-label="Terminal Input">
         </div>
     </div>
 
     <!-- Advanced Dev Console (Drawer) -->
-    <div id="dev-console" class="fixed bottom-0 left-0 w-full bg-black/95 backdrop-blur-xl border-t border-neutral-800 z-[50] flex flex-col shadow-[0_-10px_40px_rgba(0,0,0,0.5)] panel-drawer panel-closed" style="height: 320px;">
+    <div id="dev-console" class="fixed bottom-0 left-0 w-full bg-black/95 backdrop-blur-xl border-t border-neutral-800 z-[50] flex flex-col shadow-[0_-10px_40px_rgba(0,0,0,0.5)] panel-drawer panel-closed" style="height: 320px;" role="region" aria-label="Debug Console">
         <!-- Header -->
         <div id="console-header" class="h-9 bg-neutral-900/50 border-b border-neutral-800 flex items-center justify-between px-3 cursor-ns-resize select-none hover:bg-neutral-800/50 transition-colors">
              <div class="flex items-center gap-2">
@@ -274,14 +318,14 @@
                 <span class="text-xs font-mono text-neutral-400">Debug Console</span>
              </div>
              <div class="flex items-center gap-3">
-                <button onclick="clearConsole()" class="text-[10px] text-neutral-500 hover:text-white transition-colors px-2 border border-neutral-700 rounded hover:bg-neutral-800">Clear</button>
-                <button onclick="minimizePanel('dev-console')" class="text-neutral-500 hover:text-white transition-colors"><i data-lucide="minus" class="w-3 h-3"></i></button>
-                <button onclick="maximizePanel('dev-console')" class="text-neutral-500 hover:text-white transition-colors"><i data-lucide="maximize-2" class="w-3 h-3"></i></button>
-                <button onclick="closePanel('dev-console')" class="text-neutral-500 hover:text-red-500 transition-colors"><i data-lucide="x" class="w-3 h-3"></i></button>
+                <button onclick="clearConsole()" class="text-[10px] text-neutral-500 hover:text-white transition-colors px-2 border border-neutral-700 rounded hover:bg-neutral-800" aria-label="Clear Console">Clear</button>
+                <button onclick="minimizePanel('dev-console')" class="text-neutral-500 hover:text-white transition-colors" aria-label="Minimize Console"><i data-lucide="minus" class="w-3 h-3"></i></button>
+                <button onclick="maximizePanel('dev-console')" class="text-neutral-500 hover:text-white transition-colors" aria-label="Maximize Console"><i data-lucide="maximize-2" class="w-3 h-3"></i></button>
+                <button onclick="closePanel('dev-console')" class="text-neutral-500 hover:text-red-500 transition-colors" aria-label="Close Console"><i data-lucide="x" class="w-3 h-3"></i></button>
              </div>
         </div>
         <!-- Output -->
-        <div id="console-output" class="flex-1 overflow-y-auto p-2 font-mono text-sm text-neutral-300 space-y-1 scrollbar-thin">
+        <div id="console-output" class="flex-1 overflow-y-auto p-2 font-mono text-sm text-neutral-300 space-y-1 scrollbar-thin" role="log">
             <!-- Logs go here -->
         </div>
     </div>
@@ -290,7 +334,7 @@
     <div id="about-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] hidden items-center justify-center overflow-hidden">
         <div class="bg-neutral-950 w-full h-full overflow-y-auto slide-up-enter relative">
             <!-- Close Button -->
-            <button onclick="toggleAbout()" class="fixed top-6 right-6 bg-neutral-800 text-white p-2 rounded-full shadow-xl hover:bg-neutral-700 hover:rotate-90 transition-all duration-300 z-50">
+            <button onclick="toggleAbout()" class="fixed top-6 right-6 bg-neutral-800 text-white p-2 rounded-full shadow-xl hover:bg-neutral-700 hover:rotate-90 transition-all duration-300 z-50" aria-label="Close About Overlay">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
 
