@@ -176,7 +176,7 @@
             </div>
 
             <!-- Template Button -->
-            <button onclick="loadTemplate()" class="p-2 text-neutral-500 hover:text-white hover:bg-neutral-800 rounded-lg transition-all duration-200 ease-smooth" title="Load Template" aria-label="Load Code Template">
+            <button onclick="openTemplateModal()" class="p-2 text-neutral-500 hover:text-white hover:bg-neutral-800 rounded-lg transition-all duration-200 ease-smooth" title="Choose Template" aria-label="Choose Code Template">
                 <i data-lucide="layout-template" class="w-4 h-4"></i>
             </button>
 
@@ -561,14 +561,99 @@
         </div>
     </div>
 
+    <!-- Template Selection Modal -->
+    <div id="template-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[70] hidden items-center justify-center p-4">
+        <div class="bg-neutral-900 border border-neutral-800 w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden slide-up-enter">
+            <div class="p-6 border-b border-neutral-800 flex justify-between items-center">
+                <div>
+                    <h2 class="text-xl font-bold text-white">Choose a Template</h2>
+                    <p class="text-neutral-400 text-sm">Select a starter project to populate your editor.</p>
+                </div>
+                <button onclick="closeTemplateModal()" class="text-neutral-500 hover:text-white transition-colors"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[60vh] overflow-y-auto custom-scrollbar">
+                <!-- Template 1: Basic Boilerplate -->
+                <button onclick="applyTemplate('basic')" class="flex items-start gap-4 p-4 rounded-xl bg-neutral-950 border border-neutral-800 hover:border-blue-500 hover:bg-blue-500/5 transition-all duration-200 text-left group">
+                    <div class="bg-blue-500/10 p-3 rounded-lg text-blue-400 group-hover:text-blue-300 group-hover:scale-110 transition-transform">
+                        <i data-lucide="code-2" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-semibold">Basic Boilerplate</h3>
+                        <p class="text-neutral-500 text-xs mt-1">Simple HTML5 structure with a centered container and basic styling.</p>
+                    </div>
+                </button>
+
+                <!-- Template 2: Responsive Website -->
+                <button onclick="applyTemplate('website')" class="flex items-start gap-4 p-4 rounded-xl bg-neutral-950 border border-neutral-800 hover:border-purple-500 hover:bg-purple-500/5 transition-all duration-200 text-left group">
+                    <div class="bg-purple-500/10 p-3 rounded-lg text-purple-400 group-hover:text-purple-300 group-hover:scale-110 transition-transform">
+                        <i data-lucide="layout" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-semibold">Simple Website</h3>
+                        <p class="text-neutral-500 text-xs mt-1">Responsive landing page with Navbar, Hero section, and Grid layout.</p>
+                    </div>
+                </button>
+
+                <!-- Template 3: To-Do App -->
+                <button onclick="applyTemplate('todo')" class="flex items-start gap-4 p-4 rounded-xl bg-neutral-950 border border-neutral-800 hover:border-green-500 hover:bg-green-500/5 transition-all duration-200 text-left group">
+                    <div class="bg-green-500/10 p-3 rounded-lg text-green-400 group-hover:text-green-300 group-hover:scale-110 transition-transform">
+                        <i data-lucide="check-square" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-semibold">To-Do List App</h3>
+                        <p class="text-neutral-500 text-xs mt-1">Interactive JS application with add, delete, and toggle functionality.</p>
+                    </div>
+                </button>
+
+                <!-- Template 4: Canvas Animation -->
+                <button onclick="applyTemplate('canvas')" class="flex items-start gap-4 p-4 rounded-xl bg-neutral-950 border border-neutral-800 hover:border-orange-500 hover:bg-orange-500/5 transition-all duration-200 text-left group">
+                    <div class="bg-orange-500/10 p-3 rounded-lg text-orange-400 group-hover:text-orange-300 group-hover:scale-110 transition-transform">
+                        <i data-lucide="aperture" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-semibold">Canvas Animation</h3>
+                        <p class="text-neutral-500 text-xs mt-1">HTML5 Canvas example with bouncing particles animation logic.</p>
+                    </div>
+                </button>
+
+                <!-- Template 5: Glassmorphism Login -->
+                <button onclick="applyTemplate('glass')" class="flex items-start gap-4 p-4 rounded-xl bg-neutral-950 border border-neutral-800 hover:border-cyan-500 hover:bg-cyan-500/5 transition-all duration-200 text-left group">
+                    <div class="bg-cyan-500/10 p-3 rounded-lg text-cyan-400 group-hover:text-cyan-300 group-hover:scale-110 transition-transform">
+                        <i data-lucide="droplets" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-semibold">Glassmorphism UI</h3>
+                        <p class="text-neutral-500 text-xs mt-1">Modern UI design example with backdrop-blur and transparency effects.</p>
+                    </div>
+                </button>
+
+                <!-- Template 6: Calculator -->
+                <button onclick="applyTemplate('calculator')" class="flex items-start gap-4 p-4 rounded-xl bg-neutral-950 border border-neutral-800 hover:border-pink-500 hover:bg-pink-500/5 transition-all duration-200 text-left group">
+                    <div class="bg-pink-500/10 p-3 rounded-lg text-pink-400 group-hover:text-pink-300 group-hover:scale-110 transition-transform">
+                        <i data-lucide="calculator" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-semibold">JS Calculator</h3>
+                        <p class="text-neutral-500 text-xs mt-1">Fully functional calculator with logic for operations and display.</p>
+                    </div>
+                </button>
+            </div>
+            <div class="p-4 bg-neutral-950 border-t border-neutral-800 flex justify-end">
+                <button onclick="closeTemplateModal()" class="px-4 py-2 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors text-sm font-medium">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // --- Default Templates ---
         const defaultHTML = "";
         const defaultCSS = "";
         const defaultJS = "";
         
-        // Boilerplate Template
-        const boilerplateHTML = `<!DOCTYPE html>
+        // --- Template Data ---
+        const templates = {
+            basic: {
+                html: `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -582,9 +667,8 @@
     <button id="clickMe">Click Me</button>
   </div>
 </body>
-</html>`;
-
-        const boilerplateCSS = `body {
+</html>`,
+                css: `body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f0f2f5;
   color: #333;
@@ -621,9 +705,8 @@ button {
 button:hover {
   background: #1d4ed8;
   transform: translateY(-1px);
-}`;
-
-        const boilerplateJS = `console.log('Template loaded successfully!');
+}`,
+                js: `console.log('Template loaded successfully!');
 
 const btn = document.getElementById('clickMe');
 
@@ -632,11 +715,318 @@ btn.addEventListener('click', () => {
   const randomColor = colors[Math.floor(Math.random() * colors.length)];
   document.body.style.backgroundColor = randomColor;
   console.log(\`Background changed to \${randomColor}\`);
-});`;
+});`
+            },
+            website: {
+                html: `<nav>
+  <div class="logo">Brand</div>
+  <div class="links">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <h1>Build Faster.</h1>
+  <p>Create stunning websites directly in your browser.</p>
+  <button>Get Started</button>
+</header>
+
+<section class="grid">
+  <div class="card"><h3>Design</h3><p>Craft beautiful UIs.</p></div>
+  <div class="card"><h3>Develop</h3><p>Write clean code.</p></div>
+  <div class="card"><h3>Deploy</h3><p>Share with the world.</p></div>
+</section>`,
+                css: `body { margin: 0; font-family: sans-serif; background: #111; color: #fff; }
+
+nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.5rem 2rem; border-bottom: 1px solid #333;
+}
+.logo { font-weight: bold; font-size: 1.2rem; }
+.links a { color: #aaa; text-decoration: none; margin-left: 1.5rem; }
+.links a:hover { color: #fff; }
+
+.hero {
+  text-align: center; padding: 5rem 1rem;
+}
+.hero h1 { font-size: 3.5rem; margin-bottom: 1rem; background: linear-gradient(to right, #4facfe, #00f2fe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero button { padding: 12px 30px; font-size: 1rem; background: #fff; border: none; border-radius: 50px; cursor: pointer; margin-top: 20px; font-weight: bold; }
+
+.grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem; padding: 2rem; max-width: 1000px; margin: 0 auto;
+}
+.card {
+  background: #222; padding: 2rem; border-radius: 12px; border: 1px solid #333;
+  transition: transform 0.2s;
+}
+.card:hover { transform: translateY(-5px); border-color: #4facfe; }`,
+                js: `// Add simple scroll effect
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  if(window.scrollY > 50) {
+    nav.style.background = 'rgba(0,0,0,0.8)';
+    nav.style.backdropFilter = 'blur(10px)';
+  } else {
+    nav.style.background = 'transparent';
+    nav.style.backdropFilter = 'none';
+  }
+});`
+            },
+            todo: {
+                html: `<div class="wrapper">
+  <h2>My Tasks</h2>
+  <div class="input-group">
+    <input type="text" id="taskInput" placeholder="Add a new task...">
+    <button id="addBtn">Add</button>
+  </div>
+  <ul id="taskList"></ul>
+</div>`,
+                css: `body { font-family: 'Inter', sans-serif; background: #e2e8f0; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+
+.wrapper { width: 350px; background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+h2 { color: #1e293b; margin-top: 0; }
+
+.input-group { display: flex; gap: 10px; margin-bottom: 20px; }
+input { flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; }
+button { background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; }
+button:hover { background: #2563eb; }
+
+ul { list-style: none; padding: 0; }
+li { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #f1f5f9; }
+li:last-child { border-bottom: none; }
+li.done span { text-decoration: line-through; color: #94a3b8; }
+.delete-btn { color: #ef4444; cursor: pointer; font-size: 1.2rem; }`,
+                js: `const input = document.getElementById('taskInput');
+const addBtn = document.getElementById('addBtn');
+const list = document.getElementById('taskList');
+
+addBtn.addEventListener('click', addTask);
+input.addEventListener('keypress', (e) => { if(e.key === 'Enter') addTask() });
+
+function addTask() {
+  const text = input.value.trim();
+  if(!text) return;
+  
+  const li = document.createElement('li');
+  li.innerHTML = \`<span>\${text}</span> <span class="delete-btn">&times;</span>\`;
+  
+  // Toggle Complete
+  li.addEventListener('click', (e) => {
+    if(e.target.classList.contains('delete-btn')) {
+      li.remove();
+    } else {
+      li.classList.toggle('done');
+    }
+  });
+  
+  list.appendChild(li);
+  input.value = '';
+}`
+            },
+            canvas: {
+                html: `<canvas id="myCanvas"></canvas>
+<div class="overlay">Click to spawn particles</div>`,
+                css: `body { margin: 0; overflow: hidden; background: #000; }
+canvas { display: block; }
+.overlay {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  color: rgba(255,255,255,0.5); font-family: sans-serif; pointer-events: none;
+}`,
+                js: `const canvas = document.getElementById('myCanvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+// Resize
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+class Particle {
+  constructor(x, y) {
+    this.x = x; this.y = y;
+    this.size = Math.random() * 5 + 1;
+    this.speedX = Math.random() * 3 - 1.5;
+    this.speedY = Math.random() * 3 - 1.5;
+    this.color = \`hsl(\${Math.random() * 360}, 50%, 50%)\`;
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if(this.size > 0.2) this.size -= 0.1;
+  }
+  draw() {
+    ctx.fillStyle = this.color;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+    ctx.fill();
+  }
+}
+
+window.addEventListener('click', (e) => {
+  for(let i=0; i<10; i++) {
+    particles.push(new Particle(e.x, e.y));
+  }
+});
+
+function animate() {
+  ctx.fillStyle = 'rgba(0,0,0,0.1)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  for(let i=0; i<particles.length; i++) {
+    particles[i].update();
+    particles[i].draw();
+    if(particles[i].size <= 0.2) {
+      particles.splice(i, 1); i--;
+    }
+  }
+  requestAnimationFrame(animate);
+}
+animate();`
+            },
+            glass: {
+                html: `<div class="background">
+  <div class="shape shape-1"></div>
+  <div class="shape shape-2"></div>
+</div>
+<form>
+  <h3>Login Here</h3>
+  <label>Username</label>
+  <input type="text" placeholder="Email or Phone">
+  <label>Password</label>
+  <input type="password" placeholder="Password">
+  <button type="button">Log In</button>
+</form>`,
+                css: `body {
+  background-color: #080710; font-family: 'Poppins', sans-serif;
+}
+.background {
+  width: 430px; height: 520px; position: absolute; transform: translate(-50%,-50%); left: 50%; top: 50%;
+}
+.shape {
+  height: 200px; width: 200px; position: absolute; border-radius: 50%;
+}
+.shape-1 {
+  background: linear-gradient(#1845ad, #23a2f6); left: -80px; top: -80px;
+}
+.shape-2 {
+  background: linear-gradient(to right, #ff512f, #f09819); right: -30px; bottom: -80px;
+}
+form {
+  height: 520px; width: 400px; background-color: rgba(255,255,255,0.13);
+  position: absolute; transform: translate(-50%,-50%); top: 50%; left: 50%;
+  border-radius: 10px; backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.1);
+  box-shadow: 0 0 40px rgba(8,7,16,0.6); padding: 50px 35px; box-sizing: border-box;
+}
+form * {
+  color: #ffffff; letter-spacing: 0.5px; outline: none; border: none;
+}
+h3 { font-size: 32px; font-weight: 500; line-height: 42px; text-align: center; margin-bottom: 30px; }
+input {
+  display: block; height: 50px; width: 100%; background-color: rgba(255,255,255,0.07);
+  border-radius: 3px; padding: 0 10px; margin-top: 8px; font-size: 14px; font-weight: 300; margin-bottom: 20px;
+}
+button {
+  margin-top: 30px; width: 100%; background-color: #ffffff; color: #080710;
+  padding: 15px 0; font-size: 18px; font-weight: 600; border-radius: 5px; cursor: pointer;
+}`,
+                js: `const button = document.querySelector('button');
+button.addEventListener('click', () => {
+  button.innerText = 'Logging In...';
+  setTimeout(() => {
+    button.style.backgroundColor = '#23a2f6';
+    button.style.color = 'white';
+    button.innerText = 'Success!';
+  }, 1500);
+});`
+            },
+            calculator: {
+                html: `<div class="calculator">
+  <div class="display" id="display">0</div>
+  <div class="buttons">
+    <button class="btn op" onclick="clearDisplay()">C</button>
+    <button class="btn op" onclick="appendOperator('/')">/</button>
+    <button class="btn op" onclick="appendOperator('*')">×</button>
+    <button class="btn op" onclick="deleteLast()">⌫</button>
+    <button class="btn" onclick="appendNumber('7')">7</button>
+    <button class="btn" onclick="appendNumber('8')">8</button>
+    <button class="btn" onclick="appendNumber('9')">9</button>
+    <button class="btn op" onclick="appendOperator('-')">-</button>
+    <button class="btn" onclick="appendNumber('4')">4</button>
+    <button class="btn" onclick="appendNumber('5')">5</button>
+    <button class="btn" onclick="appendNumber('6')">6</button>
+    <button class="btn op" onclick="appendOperator('+')">+</button>
+    <button class="btn" onclick="appendNumber('1')">1</button>
+    <button class="btn" onclick="appendNumber('2')">2</button>
+    <button class="btn" onclick="appendNumber('3')">3</button>
+    <button class="btn equal" onclick="calculate()">=</button>
+    <button class="btn zero" onclick="appendNumber('0')">0</button>
+    <button class="btn" onclick="appendNumber('.')">.</button>
+  </div>
+</div>`,
+                css: `body {
+  display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;
+  background: #111; font-family: 'Courier New', monospace;
+}
+.calculator {
+  background: #222; padding: 20px; border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 300px;
+}
+.display {
+  background: #333; color: #0f0; font-size: 2rem; text-align: right;
+  padding: 15px; border-radius: 8px; margin-bottom: 20px; overflow-x: auto;
+}
+.buttons {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+}
+.btn {
+  padding: 20px; font-size: 1.2rem; border: none; border-radius: 8px;
+  background: #444; color: #fff; cursor: pointer; transition: 0.1s;
+}
+.btn:hover { background: #555; }
+.btn:active { transform: scale(0.95); }
+.btn.op { background: #ff9f43; color: #222; }
+.btn.equal { grid-row: span 2; background: #28c76f; color: #fff; height: 100%; }
+.btn.zero { grid-column: span 2; }`,
+                js: `const display = document.getElementById('display');
+
+function appendNumber(num) {
+  if(display.innerText === '0') display.innerText = num;
+  else display.innerText += num;
+}
+
+function appendOperator(op) {
+  const lastChar = display.innerText.slice(-1);
+  if(['+', '-', '*', '/'].includes(lastChar)) return;
+  display.innerText += op;
+}
+
+function clearDisplay() {
+  display.innerText = '0';
+}
+
+function deleteLast() {
+  display.innerText = display.innerText.slice(0, -1) || '0';
+}
+
+function calculate() {
+  try {
+    display.innerText = eval(display.innerText);
+  } catch {
+    display.innerText = 'Error';
+  }
+}`
+            }
+        };
 
         // --- DOM Elements ---
         const iframe = document.getElementById('preview-frame');
         const autoRunToggle = document.getElementById('auto-run-toggle');
+        const templateModal = document.getElementById('template-modal');
         
         // Panel Elements
         const panels = {
@@ -790,16 +1180,21 @@ btn.addEventListener('click', () => {
                 <\/script>
             `;
 
+            // Fix: Escape backticks and dollar signs to prevent breaking the source string
+            const safeHtml = html.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$/g, '\\$');
+            const safeCss = css.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$/g, '\\$');
+            const safeJs = js.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$/g, '\\$');
+
             const source = `
                 <!DOCTYPE html>
                 <html lang="en">
-                <head><style>${css}</style></head>
+                <head><style>${safeCss}</style></head>
                 <body>
-                    ${html}
+                    ${safeHtml}
                     ${consoleScript}
                     <script>
                         try {
-                            ${js}
+                            ${safeJs}
                         } catch(err) {
                             console.error(err);
                         }
@@ -812,31 +1207,43 @@ btn.addEventListener('click', () => {
             saveCode();
         }
 
-        // --- Template Function (Updated) ---
-        function loadTemplate() {
+        // --- Template Functions ---
+        function openTemplateModal() {
             if (!htmlEditor || !cssEditor || !jsEditor) {
-                showToast('Editor not ready yet...', 'info');
+                showToast('Editor loading...', 'info');
                 return;
             }
+            templateModal.classList.remove('hidden');
+            templateModal.classList.add('flex');
+        }
 
-            if(confirm('This will overwrite your current code with a starter template. Continue?')) {
-                 try {
-                     htmlEditor.setValue(boilerplateHTML);
-                     cssEditor.setValue(boilerplateCSS);
-                     jsEditor.setValue(boilerplateJS);
-                     saveCode();
-                     runCode();
-                     showToast('Template loaded', 'success');
-                 } catch (err) {
-                     console.error(err);
-                     showToast('Error loading template', 'error');
-                 }
+        function closeTemplateModal() {
+            templateModal.classList.add('hidden');
+            templateModal.classList.remove('flex');
+        }
+
+        function applyTemplate(type) {
+            if(confirm('Warning: This will overwrite your current code. Continue?')) {
+                try {
+                    const t = templates[type];
+                    if(t) {
+                        htmlEditor.setValue(t.html);
+                        cssEditor.setValue(t.css);
+                        jsEditor.setValue(t.js);
+                        saveCode();
+                        runCode();
+                        closeTemplateModal();
+                        showToast('Template loaded!', 'success');
+                    }
+                } catch (err) {
+                    console.error(err);
+                    showToast('Error loading template', 'error');
+                }
             }
         }
         
-        // Ensure global access
-        window.loadTemplate = loadTemplate;
-
+        // Old loadTemplate function removed/replaced by openTemplateModal
+        
         // --- Panel Management ---
         function togglePanel(id) {
             const panel = panels[id].el;
