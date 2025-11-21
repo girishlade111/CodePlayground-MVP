@@ -961,7 +961,8 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'project.html';
+            // Update: Changed filename from 'project.html' to 'devstack.html'
+            a.download = 'devstack.html';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
