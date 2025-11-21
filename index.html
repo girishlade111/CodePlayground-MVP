@@ -18,12 +18,12 @@
 
     <style>
         :root {
-            --bg-dark: #0f172a;
-            --bg-panel: #1e293b;
-            --border-color: #334155;
-            --accent: #3b82f6;
-            --text-primary: #e2e8f0;
-            --text-secondary: #94a3b8;
+            --bg-dark: #0a0a0a;
+            --bg-panel: #171717;
+            --border-color: #262626;
+            --accent: #ffffff;
+            --text-primary: #e5e5e5;
+            --text-secondary: #a3a3a3;
         }
 
         body {
@@ -47,7 +47,7 @@
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
+            background: #525252;
         }
 
         /* Code Editor Styling */
@@ -56,7 +56,7 @@
             font-size: 14px;
             line-height: 1.5;
             background-color: var(--bg-panel);
-            color: #e2e8f0;
+            color: #e5e5e5;
             border: none;
             resize: none;
             outline: none;
@@ -64,29 +64,30 @@
         }
         
         .code-editor::placeholder {
-            color: #475569;
+            color: #525252;
         }
 
         /* Gutter numbering simulation (simple visual) */
         .gutter {
             font-family: 'JetBrains Mono', monospace;
-            background-color: #0f172a;
-            color: #475569;
+            background-color: #0a0a0a;
+            color: #525252;
             text-align: right;
             padding-right: 8px;
             user-select: none;
         }
 
         /* Syntax highlight colors (simulated via CSS variables for the UI headers) */
-        .html-color { color: #e06c75; }
-        .css-color { color: #61afef; }
-        .js-color { color: #e5c07b; }
+        /* Kept colored for readability, but could be greyscale if strictly requested */
+        .html-color { color: #e5e5e5; } 
+        .css-color { color: #a3a3a3; }
+        .js-color { color: #737373; }
 
         /* Resizable panels logic would go here, simplified to Flexbox for this demo */
         
         .panel-header {
             backdrop-filter: blur(8px);
-            background: rgba(30, 41, 59, 0.8);
+            background: rgba(23, 23, 23, 0.9);
         }
 
         /* Console Area */
@@ -94,41 +95,41 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 12px;
         }
-        .log-entry { border-bottom: 1px solid #334155; padding: 4px 0; }
+        .log-entry { border-bottom: 1px solid #262626; padding: 4px 0; }
         .log-error { color: #ef4444; }
-        .log-warn { color: #f59e0b; }
-        .log-info { color: #3b82f6; }
+        .log-warn { color: #fbbf24; }
+        .log-info { color: #e5e5e5; }
 
     </style>
 </head>
-<body class="flex flex-col h-screen">
+<body class="flex flex-col h-screen bg-neutral-950 text-neutral-200">
 
     <!-- Navigation Bar -->
-    <nav class="h-14 border-b border-slate-700 bg-slate-900 flex items-center justify-between px-4 select-none">
+    <nav class="h-14 border-b border-neutral-800 bg-neutral-950 flex items-center justify-between px-4 select-none">
         <div class="flex items-center gap-3">
-            <div class="bg-blue-600 p-1.5 rounded-lg">
-                <i data-lucide="code-2" class="w-5 h-5 text-white"></i>
+            <div class="bg-white p-1.5 rounded-lg">
+                <i data-lucide="code-2" class="w-5 h-5 text-black"></i>
             </div>
-            <span class="font-semibold text-lg tracking-tight">DevSpace</span>
+            <span class="font-semibold text-lg tracking-tight text-white">DevSpace</span>
 
             <!-- Social Media Links -->
-            <div class="hidden md:flex items-center gap-4 ml-4 pl-4 border-l border-slate-700 h-6">
-                <a href="https://ladestack.in" target="_blank" class="text-slate-500 hover:text-indigo-400 transition-colors" title="LadeStack.in">
+            <div class="hidden md:flex items-center gap-4 ml-4 pl-4 border-l border-neutral-800 h-6">
+                <a href="https://ladestack.in" target="_blank" class="text-neutral-500 hover:text-white transition-colors" title="LadeStack.in">
                     <i data-lucide="globe" class="w-4 h-4"></i>
                 </a>
-                <a href="https://www.instagram.com/girish_lade_/" target="_blank" class="text-slate-500 hover:text-pink-500 transition-colors" title="Instagram">
+                <a href="https://www.instagram.com/girish_lade_/" target="_blank" class="text-neutral-500 hover:text-white transition-colors" title="Instagram">
                     <i data-lucide="instagram" class="w-4 h-4"></i>
                 </a>
-                <a href="https://www.linkedin.com/in/girish-lade-075bba201/" target="_blank" class="text-slate-500 hover:text-blue-500 transition-colors" title="LinkedIn">
+                <a href="https://www.linkedin.com/in/girish-lade-075bba201/" target="_blank" class="text-neutral-500 hover:text-white transition-colors" title="LinkedIn">
                     <i data-lucide="linkedin" class="w-4 h-4"></i>
                 </a>
-                <a href="https://github.com/girishlade111" target="_blank" class="text-slate-500 hover:text-white transition-colors" title="GitHub">
+                <a href="https://github.com/girishlade111" target="_blank" class="text-neutral-500 hover:text-white transition-colors" title="GitHub">
                     <i data-lucide="github" class="w-4 h-4"></i>
                 </a>
-                <a href="https://codepen.io/Girish-Lade-the-looper" target="_blank" class="text-slate-500 hover:text-white transition-colors" title="CodePen">
+                <a href="https://codepen.io/Girish-Lade-the-looper" target="_blank" class="text-neutral-500 hover:text-white transition-colors" title="CodePen">
                     <i data-lucide="codepen" class="w-4 h-4"></i>
                 </a>
-                <a href="mailto:girishlade111@gmail.com" class="text-slate-500 hover:text-yellow-400 transition-colors" title="Email">
+                <a href="mailto:girishlade111@gmail.com" class="text-neutral-500 hover:text-white transition-colors" title="Email">
                     <i data-lucide="mail" class="w-4 h-4"></i>
                 </a>
             </div>
@@ -139,20 +140,20 @@
             <div class="flex items-center gap-2 mr-4">
                 <label class="relative inline-flex items-center cursor-pointer">
                     <input type="checkbox" id="auto-run-toggle" class="sr-only peer" checked>
-                    <div class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
-                    <span class="ml-2 text-xs text-slate-400 font-medium">Auto-Run</span>
+                    <div class="w-9 h-5 bg-neutral-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-black after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-neutral-400 after:border-neutral-600 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-white peer-checked:after:bg-black"></div>
+                    <span class="ml-2 text-xs text-neutral-400 font-medium">Auto-Run</span>
                 </label>
             </div>
 
-            <button onclick="runCode()" class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-1.5 rounded text-sm font-medium transition-colors">
-                <i data-lucide="play" class="w-4 h-4"></i> Run
+            <button onclick="runCode()" class="flex items-center gap-2 bg-white hover:bg-neutral-200 text-black px-4 py-1.5 rounded text-sm font-bold transition-colors">
+                <i data-lucide="play" class="w-4 h-4 fill-current"></i> Run
             </button>
             
-            <button onclick="downloadCode()" class="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded transition-colors" title="Download HTML">
+            <button onclick="downloadCode()" class="p-2 text-neutral-500 hover:text-white hover:bg-neutral-800 rounded transition-colors" title="Download HTML">
                 <i data-lucide="download" class="w-4 h-4"></i>
             </button>
 
-            <button onclick="clearStorage()" class="p-2 text-slate-400 hover:text-red-400 hover:bg-slate-800 rounded transition-colors" title="Reset Workspace">
+            <button onclick="clearStorage()" class="p-2 text-neutral-500 hover:text-red-400 hover:bg-neutral-800 rounded transition-colors" title="Reset Workspace">
                 <i data-lucide="trash-2" class="w-4 h-4"></i>
             </button>
         </div>
@@ -162,61 +163,61 @@
     <main class="flex-1 flex overflow-hidden">
         
         <!-- Editors Column (Left) -->
-        <div class="flex-1 flex flex-col border-r border-slate-700 min-w-[300px] max-w-[50%] transition-all duration-300" id="editor-container">
+        <div class="flex-1 flex flex-col border-r border-neutral-800 min-w-[300px] max-w-[50%] transition-all duration-300" id="editor-container">
             
             <!-- HTML Editor -->
-            <div class="flex-1 flex flex-col border-b border-slate-700 min-h-[100px]">
-                <div class="panel-header h-8 flex items-center justify-between px-3 bg-slate-800 border-b border-slate-700">
-                    <div class="flex items-center gap-2 text-xs font-bold text-slate-400">
+            <div class="flex-1 flex flex-col border-b border-neutral-800 min-h-[100px]">
+                <div class="panel-header h-8 flex items-center justify-between px-3 bg-neutral-900 border-b border-neutral-800">
+                    <div class="flex items-center gap-2 text-xs font-bold text-neutral-400">
                         <i data-lucide="file-code" class="w-3 h-3 html-color"></i> HTML
                     </div>
-                    <button onclick="copyToClipboard('html')" class="text-xs text-slate-500 hover:text-slate-300">Copy</button>
+                    <button onclick="copyToClipboard('html')" class="text-xs text-neutral-500 hover:text-white">Copy</button>
                 </div>
-                <textarea id="html-code" class="code-editor w-full h-full p-4 focus:bg-[#1a2433] transition-colors" spellcheck="false" placeholder="<!-- HTML goes here -->"></textarea>
+                <textarea id="html-code" class="code-editor w-full h-full p-4 focus:bg-black transition-colors" spellcheck="false" placeholder="<!-- HTML goes here -->"></textarea>
             </div>
 
             <!-- CSS Editor -->
-            <div class="flex-1 flex flex-col border-b border-slate-700 min-h-[100px]">
-                <div class="panel-header h-8 flex items-center justify-between px-3 bg-slate-800 border-b border-slate-700">
-                    <div class="flex items-center gap-2 text-xs font-bold text-slate-400">
+            <div class="flex-1 flex flex-col border-b border-neutral-800 min-h-[100px]">
+                <div class="panel-header h-8 flex items-center justify-between px-3 bg-neutral-900 border-b border-neutral-800">
+                    <div class="flex items-center gap-2 text-xs font-bold text-neutral-400">
                         <i data-lucide="palette" class="w-3 h-3 css-color"></i> CSS
                     </div>
-                    <button onclick="copyToClipboard('css')" class="text-xs text-slate-500 hover:text-slate-300">Copy</button>
+                    <button onclick="copyToClipboard('css')" class="text-xs text-neutral-500 hover:text-white">Copy</button>
                 </div>
-                <textarea id="css-code" class="code-editor w-full h-full p-4 focus:bg-[#1a2433] transition-colors" spellcheck="false" placeholder="/* CSS goes here */"></textarea>
+                <textarea id="css-code" class="code-editor w-full h-full p-4 focus:bg-black transition-colors" spellcheck="false" placeholder="/* CSS goes here */"></textarea>
             </div>
 
             <!-- JS Editor -->
             <div class="flex-1 flex flex-col min-h-[100px]">
-                <div class="panel-header h-8 flex items-center justify-between px-3 bg-slate-800 border-b border-slate-700">
-                    <div class="flex items-center gap-2 text-xs font-bold text-slate-400">
+                <div class="panel-header h-8 flex items-center justify-between px-3 bg-neutral-900 border-b border-neutral-800">
+                    <div class="flex items-center gap-2 text-xs font-bold text-neutral-400">
                         <i data-lucide="braces" class="w-3 h-3 js-color"></i> JS
                     </div>
-                    <button onclick="copyToClipboard('js')" class="text-xs text-slate-500 hover:text-slate-300">Copy</button>
+                    <button onclick="copyToClipboard('js')" class="text-xs text-neutral-500 hover:text-white">Copy</button>
                 </div>
-                <textarea id="js-code" class="code-editor w-full h-full p-4 focus:bg-[#1a2433] transition-colors" spellcheck="false" placeholder="// JavaScript goes here"></textarea>
+                <textarea id="js-code" class="code-editor w-full h-full p-4 focus:bg-black transition-colors" spellcheck="false" placeholder="// JavaScript goes here"></textarea>
             </div>
         </div>
 
-        <!-- Resizer Handle (Visual only for this demo, functional via CSS flex usually) -->
-        <div class="w-1 bg-slate-900 hover:bg-blue-500 cursor-col-resize transition-colors flex items-center justify-center hidden md:flex">
-            <div class="h-8 w-0.5 bg-slate-600 rounded"></div>
+        <!-- Resizer Handle -->
+        <div class="w-1 bg-neutral-950 hover:bg-white cursor-col-resize transition-colors flex items-center justify-center hidden md:flex">
+            <div class="h-8 w-0.5 bg-neutral-800 rounded"></div>
         </div>
 
         <!-- Preview Column (Right) -->
         <div class="flex-1 flex flex-col bg-white relative min-w-[300px]">
             
             <!-- Preview Toolbar -->
-            <div class="h-8 bg-slate-100 border-b border-slate-200 flex items-center justify-between px-3">
-                <span class="text-xs font-bold text-slate-500 flex items-center gap-2">
+            <div class="h-8 bg-neutral-100 border-b border-neutral-200 flex items-center justify-between px-3">
+                <span class="text-xs font-bold text-neutral-500 flex items-center gap-2">
                     <i data-lucide="monitor" class="w-3 h-3"></i> Preview
                 </span>
                 <div class="flex items-center gap-2">
-                    <span id="size-indicator" class="text-[10px] text-slate-400 font-mono"></span>
-                    <button onclick="openInNewTab()" class="text-xs text-slate-500 hover:text-blue-600 flex items-center gap-1 border border-slate-300 rounded px-2 py-0.5 bg-white" title="Open in New Tab">
+                    <span id="size-indicator" class="text-[10px] text-neutral-400 font-mono"></span>
+                    <button onclick="openInNewTab()" class="text-xs text-neutral-500 hover:text-black flex items-center gap-1 border border-neutral-300 rounded px-2 py-0.5 bg-white transition-colors" title="Open in New Tab">
                         <i data-lucide="external-link" class="w-3 h-3"></i>
                     </button>
-                    <button onclick="toggleConsole()" class="text-xs text-slate-500 hover:text-slate-800 flex items-center gap-1 border border-slate-300 rounded px-2 py-0.5 bg-white">
+                    <button onclick="toggleConsole()" class="text-xs text-neutral-500 hover:text-black flex items-center gap-1 border border-neutral-300 rounded px-2 py-0.5 bg-white transition-colors">
                         <i data-lucide="terminal" class="w-3 h-3"></i> Console
                     </button>
                 </div>
@@ -228,15 +229,15 @@
             </div>
 
             <!-- Console Panel (Collapsible) -->
-            <div id="console-panel" class="bg-slate-900 border-t border-slate-700 h-40 absolute bottom-0 w-full transform translate-y-full transition-transform duration-300 flex flex-col">
-                <div class="h-7 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-3">
-                    <span class="text-xs text-slate-300 font-mono">Console</span>
+            <div id="console-panel" class="bg-neutral-900 border-t border-neutral-800 h-40 absolute bottom-0 w-full transform translate-y-full transition-transform duration-300 flex flex-col">
+                <div class="h-7 bg-neutral-800 border-b border-neutral-700 flex items-center justify-between px-3">
+                    <span class="text-xs text-neutral-400 font-mono">Console</span>
                     <div class="flex gap-2">
-                         <button onclick="clearConsole()" class="text-[10px] text-slate-400 hover:text-white">Clear</button>
-                         <button onclick="toggleConsole()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-3 h-3"></i></button>
+                         <button onclick="clearConsole()" class="text-[10px] text-neutral-500 hover:text-white transition-colors">Clear</button>
+                         <button onclick="toggleConsole()" class="text-neutral-500 hover:text-white transition-colors"><i data-lucide="x" class="w-3 h-3"></i></button>
                     </div>
                 </div>
-                <div id="console-output" class="flex-1 p-2 overflow-y-auto text-slate-300 space-y-1">
+                <div id="console-output" class="flex-1 p-2 overflow-y-auto text-neutral-300 space-y-1">
                     <!-- Logs go here -->
                 </div>
             </div>
@@ -245,8 +246,8 @@
     </main>
 
     <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-5 right-5 bg-slate-800 text-white px-4 py-2 rounded shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-2 z-50 border border-slate-700">
-        <i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i>
+    <div id="toast" class="fixed bottom-5 right-5 bg-neutral-900 text-white px-4 py-2 rounded shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-2 z-50 border border-neutral-800">
+        <i data-lucide="check-circle" class="w-4 h-4 text-white"></i>
         <span class="text-sm" id="toast-msg">Action Successful</span>
     </div>
 
