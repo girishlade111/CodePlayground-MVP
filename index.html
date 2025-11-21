@@ -560,8 +560,7 @@
             </div>
         </div>
     </div>
-
-    <!-- Template Selection Modal -->
+            <!-- Template Selection Modal -->
     <div id="template-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[70] hidden items-center justify-center p-4">
         <div class="bg-neutral-900 border border-neutral-800 w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden slide-up-enter">
             <div class="p-6 border-b border-neutral-800 flex justify-between items-center">
@@ -573,7 +572,8 @@
             </div>
             <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[60vh] overflow-y-auto custom-scrollbar">
                 <!-- Template 1: Basic Boilerplate -->
-                <button onclick="applyTemplate('basic')" class="flex items-start gap-4 p-4 rounded-xl bg-neutral-950 border border-neutral-800 hover:border-blue-500 hover:bg-blue-500/5 transition-all duration-200 text-left group">
+                <!-- Added template name 'Basic Boilerplate' to onclick -->
+                <button onclick="applyTemplate('basic', 'Basic Boilerplate')" class="flex items-start gap-4 p-4 rounded-xl bg-neutral-950 border border-neutral-800 hover:border-blue-500 hover:bg-blue-500/5 transition-all duration-200 text-left group">
                     <div class="bg-blue-500/10 p-3 rounded-lg text-blue-400 group-hover:text-blue-300 group-hover:scale-110 transition-transform">
                         <i data-lucide="code-2" class="w-6 h-6"></i>
                     </div>
@@ -584,7 +584,7 @@
                 </button>
 
                 <!-- Template 2: Responsive Website -->
-                <button onclick="applyTemplate('website')" class="flex items-start gap-4 p-4 rounded-xl bg-neutral-950 border border-neutral-800 hover:border-purple-500 hover:bg-purple-500/5 transition-all duration-200 text-left group">
+                <button onclick="applyTemplate('website', 'Simple Website')" class="flex items-start gap-4 p-4 rounded-xl bg-neutral-950 border border-neutral-800 hover:border-purple-500 hover:bg-purple-500/5 transition-all duration-200 text-left group">
                     <div class="bg-purple-500/10 p-3 rounded-lg text-purple-400 group-hover:text-purple-300 group-hover:scale-110 transition-transform">
                         <i data-lucide="layout" class="w-6 h-6"></i>
                     </div>
@@ -595,7 +595,7 @@
                 </button>
 
                 <!-- Template 3: To-Do App -->
-                <button onclick="applyTemplate('todo')" class="flex items-start gap-4 p-4 rounded-xl bg-neutral-950 border border-neutral-800 hover:border-green-500 hover:bg-green-500/5 transition-all duration-200 text-left group">
+                <button onclick="applyTemplate('todo', 'To-Do List App')" class="flex items-start gap-4 p-4 rounded-xl bg-neutral-950 border border-neutral-800 hover:border-green-500 hover:bg-green-500/5 transition-all duration-200 text-left group">
                     <div class="bg-green-500/10 p-3 rounded-lg text-green-400 group-hover:text-green-300 group-hover:scale-110 transition-transform">
                         <i data-lucide="check-square" class="w-6 h-6"></i>
                     </div>
@@ -606,7 +606,7 @@
                 </button>
 
                 <!-- Template 4: Canvas Animation -->
-                <button onclick="applyTemplate('canvas')" class="flex items-start gap-4 p-4 rounded-xl bg-neutral-950 border border-neutral-800 hover:border-orange-500 hover:bg-orange-500/5 transition-all duration-200 text-left group">
+                <button onclick="applyTemplate('canvas', 'Canvas Animation')" class="flex items-start gap-4 p-4 rounded-xl bg-neutral-950 border border-neutral-800 hover:border-orange-500 hover:bg-orange-500/5 transition-all duration-200 text-left group">
                     <div class="bg-orange-500/10 p-3 rounded-lg text-orange-400 group-hover:text-orange-300 group-hover:scale-110 transition-transform">
                         <i data-lucide="aperture" class="w-6 h-6"></i>
                     </div>
@@ -617,7 +617,7 @@
                 </button>
 
                 <!-- Template 5: Glassmorphism Login -->
-                <button onclick="applyTemplate('glass')" class="flex items-start gap-4 p-4 rounded-xl bg-neutral-950 border border-neutral-800 hover:border-cyan-500 hover:bg-cyan-500/5 transition-all duration-200 text-left group">
+                <button onclick="applyTemplate('glass', 'Glassmorphism UI')" class="flex items-start gap-4 p-4 rounded-xl bg-neutral-950 border border-neutral-800 hover:border-cyan-500 hover:bg-cyan-500/5 transition-all duration-200 text-left group">
                     <div class="bg-cyan-500/10 p-3 rounded-lg text-cyan-400 group-hover:text-cyan-300 group-hover:scale-110 transition-transform">
                         <i data-lucide="droplets" class="w-6 h-6"></i>
                     </div>
@@ -628,7 +628,7 @@
                 </button>
 
                 <!-- Template 6: Calculator -->
-                <button onclick="applyTemplate('calculator')" class="flex items-start gap-4 p-4 rounded-xl bg-neutral-950 border border-neutral-800 hover:border-pink-500 hover:bg-pink-500/5 transition-all duration-200 text-left group">
+                <button onclick="applyTemplate('calculator', 'JS Calculator')" class="flex items-start gap-4 p-4 rounded-xl bg-neutral-950 border border-neutral-800 hover:border-pink-500 hover:bg-pink-500/5 transition-all duration-200 text-left group">
                     <div class="bg-pink-500/10 p-3 rounded-lg text-pink-400 group-hover:text-pink-300 group-hover:scale-110 transition-transform">
                         <i data-lucide="calculator" class="w-6 h-6"></i>
                     </div>
@@ -1222,8 +1222,10 @@ function calculate() {
             templateModal.classList.remove('flex');
         }
 
-        function applyTemplate(type) {
-            if(confirm('Warning: This will overwrite your current code. Continue?')) {
+        // Updated: Accepts 'name' parameter for better confirmation message
+        function applyTemplate(type, name) {
+            // Using the readable name in the confirmation dialog
+            if(confirm(`Load "${name}" template?\n\nWarning: This will overwrite your current workspace code completely.`)) {
                 try {
                     const t = templates[type];
                     if(t) {
@@ -1233,7 +1235,7 @@ function calculate() {
                         saveCode();
                         runCode();
                         closeTemplateModal();
-                        showToast('Template loaded!', 'success');
+                        showToast(`${name} Loaded`, 'success');
                     }
                 } catch (err) {
                     console.error(err);
@@ -1242,8 +1244,9 @@ function calculate() {
             }
         }
         
-        // Old loadTemplate function removed/replaced by openTemplateModal
-        
+        // Ensure global access
+        window.loadTemplate = openTemplateModal; // Remapped for backward compatibility if needed
+
         // --- Panel Management ---
         function togglePanel(id) {
             const panel = panels[id].el;
